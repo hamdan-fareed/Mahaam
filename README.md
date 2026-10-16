@@ -1,67 +1,68 @@
-# مهام — Mahaam
+# مهام — Mahaam (Android)
 
-> A calm, editorial task manager inspired by book typography, with an Eisenhower Matrix, 30-day habit intensity tracker, and Pomodoro focus timer. 100% offline.
+> A calm, editorial productivity application built natively with Android, Kotlin, and Jetpack Compose. Features an Eisenhower Matrix, 30-day habit intensity tracker, Pomodoro focus timer with ambient chime, and weighted productivity analytics. 100% offline-first with Room database persistence.
 
 ---
 
 ## ✨ Features
 
-- **Eisenhower Matrix**: Organize tasks into 4 quadrants (Quick Wins, Major Projects, Fill-ins, Thankless Tasks) with intuitive drag-and-drop.
-- **Habit Tracker**:
-  - Horizontal 30-day quick-glance intensity strip (normalized by duration or completion count).
-  - 3 custom base ink colors (Indigo, Crimson, Matcha).
-  - Expandable full chronological history from Day 1.
-- **Pomodoro Timer**: Clean, book-like focus timer with customizable work/break intervals and session tracking.
-- **Calm Editorial Aesthetic**: Single-column book layout, Zen typography, Day/Night modes, and 3 subtle accent inks.
-- **100% Offline & Private**: Zero cloud dependencies or external trackers; all data persists locally in `localStorage`.
+- **01. Dashboard (`بداية`)**:
+  - Daily overview at a glance with quick stats (Total, Completed, Pending, Day Streak).
+  - Deterministic daily motivational quote with authentic Arabic calligraphy metadata.
+  - Quick-add form with instant quadrant assignment.
+  - Today's prioritized tasks list.
+
+- **02. The Matrix (`نظام`)**:
+  - Full 2x2 Eisenhower priority matrix with high/low impact and effort axes.
+  - Q1: Quick Wins (`إنجاز سريع`) — High Impact · Low Effort
+  - Q2: Major Projects (`مشاريع كبيرة`) — High Impact · High Effort
+  - Q3: Fill-in (`مهام جانبية`) — Low Impact · Low Effort
+  - Q4: Thankless Task (`مهام شاقة`) — Low Impact · High Effort
+  - Interactive chips with completion toggles, detail editing, and instant quadrant reassignment.
+
+- **03. Tasks (`قائمة`)**:
+  - Master catalog with search (title/notes) and filtering by status, quadrant, and priority.
+  - Full task creation dialog with due date picker and rich notes.
+  - Bulk actions: clear completed tasks and export tasks as JSON text.
+
+- **04. Focus (`تركيز`)**:
+  - Pomodoro focus timer with Work Session, Short Break, and Long Break cycle intervals.
+  - Associate timer sessions with specific pending tasks.
+  - Custom procedural C5–E5–G5 chime synthesis and subtle haptic feedback on completion.
+  - Customizable session durations and target session counts.
+
+- **05. Habits (`عادات`)**:
+  - 30-day horizontal activity strip and intensity heatmap (normalized by daily aggregate vs peak).
+  - Base ink colors: Indigo, Crimson, and Matcha.
+  - Tracking modes: Completion count (`×`) or duration (`min`).
+  - "+ Quick" one-tap logging and detailed timestamped session logging with personal notes.
+  - Expandable chronological history log from Day 1 to Today.
+
+- **06. Analytics (`تحليل`)**:
+  - Dynamic Productivity Score (0–100) weighted by quadrant impact, streak consistency, and focus minutes.
+  - Custom canvas 7-day weekly activity bar chart.
+  - Matrix energy distribution tracks.
+  - Focus time dedication counters.
 
 ---
 
-## 📱 Multi-Platform Support
+## 🎨 Themes & Inks
 
-| Platform | Format | Details |
-|---|---|---|
-| **macOS** | `.dmg` installer | Native Apple Silicon (ARM64) build |
-| **Windows** | `.zip` portable | Standalone 64-bit desktop build |
-| **Android** | PWA & Android Studio project | Mobile-responsive with thumb navigation & PWA install |
+- **Themes**: Day (`#FAFAF8`) and Night (`#1A1A1A`) modes.
+- **Inks**: Indigo (`#4A5899`), Crimson (`#A63D40`), and Matcha (`#5B7553`).
+- **Typography**: Editorial, book-like serif typography.
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Architecture & Tech Stack
 
-### Prerequisites
-
-- Node.js (v18+ recommended)
-- npm
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/mahaam.git
-cd mahaam
-
-# Install dependencies
-npm install
-
-# Run desktop app locally
-npm start
-```
-
-### Packaging Builds
-
-```bash
-# Build macOS .dmg
-npm run build
-
-# Build Windows portable .zip
-npm run build:win
-```
-
-### Mobile / Android
-
-- **PWA**: Run `python3 -m http.server 8080` in the `src/` directory and open on your mobile browser to install to your home screen.
-- **Android Studio**: Open the `android/` directory directly in Android Studio to build a native `.apk`.
+- **Language**: Kotlin 2.2+
+- **UI Framework**: Jetpack Compose with Material 3 Design
+- **Architecture**: MVVM with AndroidViewModel and unidirectional StateFlow
+- **Local Persistence**: Room SQLite Database (100% offline, private)
+- **Minimum SDK**: 24 (Android 7.0+)
+- **Target SDK**: 36 (Android 16+)
+- **Build System**: Gradle Kotlin DSL (`.gradle.kts`) with Version Catalog (`libs.versions.toml`)
 
 ---
 
