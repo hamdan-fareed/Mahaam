@@ -1,6 +1,0 @@
-{
-  "name": "Mahaam",
-  "description": "Calm, editorial productivity app with Eisenhower Matrix, Pomodoro focus timer, habit tracker, and analytics.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day" data-ink="indigo">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#FAFAF8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>مهام — Mahaam</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ─── Sidebar Navigation ─── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="logo">
+        <span class="logo-arabic">مهام</span>
+        <span class="logo-sub">Mahaam</span>
+      </div>
+
+      <ul class="nav-links">
+        <li class="nav-item active" data-view="dashboard">
+          <span class="nav-num">01</span>
+          <span class="nav-label">Dashboard</span>
+        </li>
+        <li class="nav-item" data-view="matrix">
+          <span class="nav-num">02</span>
+          <span class="nav-label">Matrix</span>
+        </li>
+        <li class="nav-item" data-view="tasks">
+          <span class="nav-num">03</span>
+          <span class="nav-label">Tasks</span>
+        </li>
+        <li class="nav-item" data-view="focus">
+          <span class="nav-num">04</span>
+          <span class="nav-label">Focus</span>
+        </li>
+        <li class="nav-item" data-view="habits">
+          <span class="nav-num">05</span>
+          <span class="nav-label">Habits</span>
+        </li>
+        <li class="nav-item" data-view="stats">
+          <span class="nav-num">06</span>
+          <span class="nav-label">Analytics</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="theme-toggle">
+        <span class="toggle-label">Mode</span>
+        <div class="toggle-buttons">
+          <button class="theme-btn active" data-theme="day">Day</button>
+          <button class="theme-btn" data-theme="night">Night</button>
+        </div>
+      </div>
+      <div class="ink-selector">
+        <span class="toggle-label">Ink</span>
+        <div class="ink-buttons">
+          <button class="ink-btn active" data-ink="indigo" title="Indigo"></button>
+          <button class="ink-btn" data-ink="crimson" title="Crimson"></button>
+          <button class="ink-btn" data-ink="matcha" title="Matcha"></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Mobile App Bar (Phones) ─── -->
+  <header class="mobile-header" id="mobile-header">
+    <div class="mobile-logo">
+      <span class="mobile-logo-arabic">مهام</span>
+      <span class="mobile-logo-sub">Mahaam</span>
+    </div>
+    <div class="mobile-controls">
+      <button type="button" class="mobile-theme-btn" id="mobile-theme-btn" title="Toggle Day / Night">Night</button>
+      <div class="mobile-ink-selector">
+        <button type="button" class="ink-btn active" data-ink="indigo" title="Indigo"></button>
+        <button type="button" class="ink-btn" data-ink="crimson" title="Crimson"></button>
+        <button type="button" class="ink-btn" data-ink="matcha" title="Matcha"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ─── -->
+  <main class="content" id="content">
+
+    <!-- ════════════════════════════════════════════
+         VIEW: DASHBOARD
+    ════════════════════════════════════════════ -->
+    <section id="view-dashboard" class="view active">
+      <header class="view-header">
+        <div class="chapter-marker">
+          <span class="chapter-num">No. 01</span>
+          <span class="chapter-arabic">بداية</span>
+        </div>
+        <h1 class="view-title">Dashboard</h1>
+        <p class="view-subtitle"><em>your day, at a glance</em></p>
+      </header>
+
+      <!-- Quick Stats Row -->
+      <div class="stats-row" id="dashboard-stats">
+        <div class="stat-card">
+          <span class="stat-number" id="stat-total">0</span>
+          <span class="stat-label">Total Tasks</span>
+          <span class="stat-arabic">المجموع</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-done">0</span>
+          <span class="stat-label">Completed</span>
+          <span class="stat-arabic">مكتمل</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-pending">0</span>
+          <span class="stat-label">Pending</span>
+          <span class="stat-arabic">قيد الانتظار</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-streak">0</span>
+          <span class="stat-label">Day Streak</span>
+          <span class="stat-arabic">أيام متتالية</span>
+        </div>
+      </div>
+
+      <!-- Quick Add -->
+      <div class="quick-add-section">
+        <div class="chapter-marker small">
+          <span class="chapter-arabic">أضف</span>
+        </div>
+        <h2>Quick Add</h2>
+        <form id="quick-add-form" class="quick-add-form">
+          <input type="text" id="quick-add-input" placeholder="What needs doing?" autocomplete="off" />
+          <select id="quick-add-quadrant">
+            <option value="high-impact-low-effort">Quick Win</option>
+            <option value="high-impact-high-effort">Major Project</option>
+            <option value="low-impact-low-effort">Fill-in</option>
+            <option value="low-impact-high-effort">Thankless Task</option>
+          </select>
+          <button type="submit" class="btn-primary">Add</button>
+        </form>
+      </div>
+
+      <!-- Today's Tasks -->
+      <div class="today-section">
+        <div class="chapter-marker small">
+          <span class="chapter-arabic">اليوم</span>
+        </div>
+        <h2>Today's Tasks</h2>
+        <div id="today-tasks" class="task-list">
+          <p class="empty-state"><em>No tasks yet — add one above</em></p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         VIEW: MATRIX (Eisenhower)
+    ════════════════════════════════════════════ -->
+    <section id="view-matrix" class="view">
+      <header class="view-header">
+        <div class="chapter-marker">
+          <span class="chapter-num">No. 02</span>
+          <span class="chapter-arabic">نظام</span>
+        </div>
+        <h1 class="view-title">The Matrix</h1>
+        <p class="view-subtitle"><em>prioritise with clarity</em></p>
+      </header>
+
+      <!-- Axis Labels -->
+      <div class="matrix-container">
+        <div class="matrix-axis-labels">
+          <span class="axis-label axis-y-top">High Impact ↑</span>
+          <span class="axis-label axis-y-bottom">Low Impact ↓</span>
+          <span class="axis-label axis-x-left">← Low Effort</span>
+          <span class="axis-label axis-x-right">High Effort →</span>
+        </div>
+
+        <div class="matrix-grid" id="matrix-grid">
+          <!-- Q1: High Impact, Low Effort — Quick Wins -->
+          <div class="quadrant q1" data-quadrant="high-impact-low-effort"
+               ondragover="event.preventDefault()" ondrop="app.handleDrop(event, 'high-impact-low-effort')">
+            <div class="quadrant-header">
+              <h3>Quick Wins</h3>
+              <span class="quadrant-desc">High Impact · Low Effort</span>
+              <span class="quadrant-arabic">إنجاز سريع</span>
+            </div>
+            <div class="quadrant-tasks" id="q-high-impact-low-effort"></div>
+          </div>
+
+          <!-- Q2: High Impact, High Effort — Major Projects -->
+          <div class="quadrant q2" data-quadrant="high-impact-high-effort"
+               ondragover="event.preventDefault()" ondrop="app.handleDrop(event, 'high-impact-high-effort')">
+            <div class="quadrant-header">
+              <h3>Major Projects</h3>
+              <span class="quadrant-desc">High Impact · High Effort</span>
+              <span class="quadrant-arabic">مشاريع كبيرة</span>
+            </div>
+            <div class="quadrant-tasks" id="q-high-impact-high-effort"></div>
+          </div>
+
+          <!-- Q3: Low Impact, Low Effort — Fill-ins -->
+          <div class="quadrant q3" data-quadrant="low-impact-low-effort"
+               ondragover="event.preventDefault()" ondrop="app.handleDrop(event, 'low-impact-low-effort')">
+            <div class="quadrant-header">
+              <h3>Fill-ins</h3>
+              <span class="quadrant-desc">Low Impact · Low Effort</span>
+              <span class="quadrant-arabic">مهام بسيطة</span>
+            </div>
+            <div class="quadrant-tasks" id="q-low-impact-low-effort"></div>
+          </div>
+
+          <!-- Q4: Low Impact, High Effort — Thankless Tasks -->
+          <div class="quadrant q4" data-quadrant="low-impact-high-effort"
+               ondragover="event.preventDefault()" ondrop="app.handleDrop(event, 'low-impact-high-effort')">
+            <div class="quadrant-header">
+              <h3>Thankless Tasks</h3>
+              <span class="quadrant-desc">Low Impact · High Effort</span>
+              <span class="quadrant-arabic">مهام شاقة</span>
+            </div>
+            <div class="quadrant-tasks" id="q-low-impact-high-effort"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Matrix Legend -->
+      <div class="matrix-legend">
+        <p><em>Drag tasks between quadrants to re-prioritise. Click to mark complete.</em></p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         VIEW: ALL TASKS
+    ════════════════════════════════════════════ -->
+    <section id="view-tasks" class="view">
+      <header class="view-header">
+        <div class="chapter-marker">
+          <span class="chapter-num">No. 03</span>
+          <span class="chapter-arabic">مهام</span>
+        </div>
+        <h1 class="view-title">All Tasks</h1>
+        <p class="view-subtitle"><em>everything in one place</em></p>
+      </header>
+
+      <!-- Search & Filter Bar -->
+      <div class="filter-bar">
+        <input type="text" id="task-search" placeholder="Search tasks…" autocomplete="off" />
+        <select id="filter-quadrant">
+          <option value="all">All Quadrants</option>
+          <option value="high-impact-low-effort">Quick Wins</option>
+          <option value="high-impact-high-effort">Major Projects</option>
+          <option value="low-impact-low-effort">Fill-ins</option>
+          <option value="low-impact-high-effort">Thankless Tasks</option>
+        </select>
+        <select id="filter-status">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="done">Completed</option>
+        </select>
+        <select id="filter-priority">
+          <option value="all">All Priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+
+      <!-- Add Task Form (Full) -->
+      <div class="add-task-full">
+        <h3>New Task</h3>
+        <form id="add-task-form" class="add-task-form">
+          <div class="form-row">
+            <input type="text" id="task-title" placeholder="Task title" required autocomplete="off" />
+          </div>
+          <div class="form-row">
+            <textarea id="task-notes" placeholder="Notes (optional)" rows="2"></textarea>
+          </div>
+          <div class="form-row form-row-inline">
+            <select id="task-quadrant">
+              <option value="high-impact-low-effort">Quick Win</option>
+              <option value="high-impact-high-effort">Major Project</option>
+              <option value="low-impact-low-effort">Fill-in</option>
+              <option value="low-impact-high-effort">Thankless Task</option>
+            </select>
+            <select id="task-priority">
+              <option value="medium">Medium Priority</option>
+              <option value="high">High Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+            <input type="date" id="task-due" />
+            <button type="submit" class="btn-primary">Add Task</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Task List -->
+      <div id="all-tasks-list" class="task-list full-task-list">
+        <p class="empty-state"><em>No tasks yet</em></p>
+      </div>
+
+      <!-- Bulk Actions -->
+      <div class="bulk-actions" id="bulk-actions" style="display:none;">
+        <button class="btn-secondary" id="btn-clear-done">Clear Completed</button>
+        <button class="btn-secondary" id="btn-export">Export Tasks</button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         VIEW: FOCUS (Pomodoro Timer)
+    ════════════════════════════════════════════ -->
+    <section id="view-focus" class="view">
+      <header class="view-header">
+        <div class="chapter-marker">
+          <span class="chapter-num">No. 04</span>
+          <span class="chapter-arabic">تركيز</span>
+        </div>
+        <h1 class="view-title">Focus Mode</h1>
+        <p class="view-subtitle"><em>deep work, one interval at a time</em></p>
+      </header>
+
+      <div class="pomodoro-container">
+        <!-- Timer Display -->
+        <div class="timer-display" id="timer-display">
+          <span class="timer-minutes" id="timer-minutes">25</span>
+          <span class="timer-sep">:</span>
+          <span class="timer-seconds" id="timer-seconds">00</span>
+        </div>
+
+        <div class="timer-label" id="timer-label">Work Session</div>
+
+        <!-- Timer Controls -->
+        <div class="timer-controls">
+          <button class="btn-primary" id="btn-timer-start">Start</button>
+          <button class="btn-secondary" id="btn-timer-pause" disabled>Pause</button>
+          <button class="btn-secondary" id="btn-timer-reset">Reset</button>
+        </div>
+
+        <!-- Timer Settings -->
+        <div class="timer-settings">
+          <div class="setting-item">
+            <label>Work</label>
+            <input type="number" id="setting-work" value="25" min="1" max="120" /> min
+          </div>
+          <div class="setting-item">
+            <label>Short Break</label>
+            <input type="number" id="setting-short-break" value="5" min="1" max="30" /> min
+          </div>
+          <div class="setting-item">
+            <label>Long Break</label>
+            <input type="number" id="setting-long-break" value="15" min="1" max="60" /> min
+          </div>
+          <div class="setting-item">
+            <label>Sessions before long break</label>
+            <input type="number" id="setting-sessions" value="4" min="1" max="10" />
+          </div>
+        </div>
+
+        <!-- Pomodoro Stats -->
+        <div class="pomo-stats">
+          <div class="stat-card">
+            <span class="stat-number" id="pomo-today">0</span>
+            <span class="stat-label">Today</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="pomo-total">0</span>
+            <span class="stat-label">All Time</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="pomo-session">0</span>
+            <span class="stat-label">This Cycle</span>
+          </div>
+        </div>
+
+        <!-- Currently Focusing On -->
+        <div class="focus-task-section">
+          <h3>Focusing on</h3>
+          <select id="focus-task-select">
+            <option value="">— select a task —</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         VIEW: HABITS
+    ════════════════════════════════════════════ -->
+    <section id="view-habits" class="view">
+      <header class="view-header">
+        <div class="chapter-marker">
+          <span class="chapter-num">No. 05</span>
+          <span class="chapter-arabic">عادات</span>
+        </div>
+        <h1 class="view-title">Daily Habits</h1>
+        <p class="view-subtitle"><em>small steps, every single day</em></p>
+      </header>
+
+      <!-- Add Habit Form -->
+      <div class="add-habit-section">
+        <form id="add-habit-form" class="habit-create-form">
+          <div class="form-row">
+            <input type="text" id="habit-name-input" placeholder="New habit label…" autocomplete="off" required />
+          </div>
+          <div class="form-row form-row-inline">
+            <div class="habit-color-picker">
+              <span class="picker-label">Color</span>
+              <button type="button" class="habit-color-btn active" data-color="indigo" title="Indigo"></button>
+              <button type="button" class="habit-color-btn" data-color="crimson" title="Crimson"></button>
+              <button type="button" class="habit-color-btn" data-color="matcha" title="Matcha"></button>
+            </div>
+            <div class="habit-mode-picker">
+              <span class="picker-label">Track by</span>
+              <select id="habit-shading-mode">
+                <option value="count">Count (×)</option>
+                <option value="duration">Duration (min)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary">Add Habit</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Habit List (30-day strips + expandable history) -->
+      <div id="habits-list" class="habits-list-v2">
+        <p class="empty-state"><em>No habits tracked yet</em></p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         VIEW: ANALYTICS
+    ════════════════════════════════════════════ -->
+    <section id="view-stats" class="view">
+      <header class="view-header">
+        <div class="chapter-marker">
+          <span class="chapter-num">No. 06</span>
+          <span class="chapter-arabic">تحليل</span>
+        </div>
+        <h1 class="view-title">Analytics</h1>
+        <p class="view-subtitle"><em>numbers tell stories</em></p>
+      </header>
+
+      <!-- Completion Chart -->
+      <div class="analytics-section">
+        <h3>Completion Over the Last 7 Days</h3>
+        <div class="chart-container" id="chart-weekly">
+          <canvas id="canvas-weekly" width="700" height="240"></canvas>
+        </div>
+      </div>
+
+      <!-- Quadrant Distribution -->
+      <div class="analytics-section">
+        <h3>Quadrant Distribution</h3>
+        <div class="quadrant-bars" id="quadrant-bars">
+          <div class="bar-row">
+            <span class="bar-label">Quick Wins</span>
+            <div class="bar-track"><div class="bar-fill" id="bar-q1"></div></div>
+            <span class="bar-count" id="count-q1">0</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Major Projects</span>
+            <div class="bar-track"><div class="bar-fill" id="bar-q2"></div></div>
+            <span class="bar-count" id="count-q2">0</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Fill-ins</span>
+            <div class="bar-track"><div class="bar-fill" id="bar-q3"></div></div>
+            <span class="bar-count" id="count-q3">0</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Thankless Tasks</span>
+            <div class="bar-track"><div class="bar-fill" id="bar-q4"></div></div>
+            <span class="bar-count" id="count-q4">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Productivity Score -->
+      <div class="analytics-section">
+        <h3>Productivity Score</h3>
+        <div class="score-display">
+          <span class="big-score" id="prod-score">0</span>
+          <span class="score-suffix">/ 100</span>
+        </div>
+        <p class="score-explain" id="score-explain"><em>Complete more high-impact tasks to increase your score.</em></p>
+      </div>
+
+      <!-- Time Focused -->
+      <div class="analytics-section">
+        <h3>Focus Time</h3>
+        <div class="stats-row compact">
+          <div class="stat-card">
+            <span class="stat-number" id="focus-today-min">0</span>
+            <span class="stat-label">Minutes Today</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="focus-total-min">0</span>
+            <span class="stat-label">Minutes All Time</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── Mobile Bottom Navigation (Phones) ─── -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button type="button" class="mobile-nav-item active" data-view="dashboard">
+      <span class="mobile-nav-num">01</span>
+      <span class="mobile-nav-label">Daily</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-view="matrix">
+      <span class="mobile-nav-num">02</span>
+      <span class="mobile-nav-label">Matrix</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-view="tasks">
+      <span class="mobile-nav-num">03</span>
+      <span class="mobile-nav-label">Tasks</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-view="focus">
+      <span class="mobile-nav-num">04</span>
+      <span class="mobile-nav-label">Focus</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-view="habits">
+      <span class="mobile-nav-num">05</span>
+      <span class="mobile-nav-label">Habits</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-view="stats">
+      <span class="mobile-nav-num">06</span>
+      <span class="mobile-nav-label">Stats</span>
+    </button>
+  </nav>
+
+  <!-- ─── Task Edit Modal ─── -->
+  <div class="modal-overlay" id="modal-overlay" style="display:none;">
+    <div class="modal" id="task-edit-modal">
+      <div class="modal-header">
+        <h2>Edit Task</h2>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <form id="edit-task-form">
+        <input type="hidden" id="edit-task-id" />
+        <div class="form-row">
+          <input type="text" id="edit-task-title" placeholder="Task title" required />
+        </div>
+        <div class="form-row">
+          <textarea id="edit-task-notes" placeholder="Notes" rows="3"></textarea>
+        </div>
+        <div class="form-row form-row-inline">
+          <select id="edit-task-quadrant">
+            <option value="high-impact-low-effort">Quick Win</option>
+            <option value="high-impact-high-effort">Major Project</option>
+            <option value="low-impact-low-effort">Fill-in</option>
+            <option value="low-impact-high-effort">Thankless Task</option>
+          </select>
+          <select id="edit-task-priority">
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="low">Low</option>
+          </select>
+          <input type="date" id="edit-task-due" />
+        </div>
+        <div class="form-row form-row-inline">
+          <button type="submit" class="btn-primary">Save</button>
+          <button type="button" class="btn-danger" id="btn-delete-task">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── Keyboard Shortcuts Modal ─── -->
+  <div class="modal-overlay" id="shortcuts-overlay" style="display:none;">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <h2>Keyboard Shortcuts</h2>
+        <button class="modal-close" id="shortcuts-close">&times;</button>
+      </div>
+      <div class="shortcuts-list">
+        <div class="shortcut-row"><kbd>N</kbd> <span>New task</span></div>
+        <div class="shortcut-row"><kbd>1-6</kbd> <span>Switch views</span></div>
+        <div class="shortcut-row"><kbd>/</kbd> <span>Search</span></div>
+        <div class="shortcut-row"><kbd>D</kbd> <span>Toggle Day / Night</span></div>
+        <div class="shortcut-row"><kbd>Space</kbd> <span>Start / Pause timer</span></div>
+        <div class="shortcut-row"><kbd>?</kbd> <span>This dialog</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Habit Log Entry Modal ─── -->
+  <div class="modal-overlay" id="habit-entry-modal-overlay" style="display:none;">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <div>
+          <span class="chapter-num" style="font-size:0.7rem;">تسجيل</span>
+          <h2 id="entry-modal-title">Log Session</h2>
+        </div>
+        <button class="modal-close" id="habit-entry-modal-close">&times;</button>
+      </div>
+      <form id="habit-entry-form">
+        <input type="hidden" id="entry-habit-id" />
+        <div class="form-row">
+          <label style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); display:block; margin-bottom:4px;" id="entry-habit-name-display">Habit</label>
+        </div>
+        <div class="form-row form-row-inline">
+          <div style="flex:1;">
+            <label style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-bottom:2px;">Date</label>
+            <input type="date" id="entry-date" required style="width:100%;" />
+          </div>
+          <div style="flex:1;">
+            <label style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-bottom:2px;">Time</label>
+            <input type="text" id="entry-time" placeholder="e.g. 14:30" style="width:100%;" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-bottom:2px;" id="entry-val-label">Value</label>
+          <input type="number" id="entry-val" min="1" step="1" required style="width:100%;" />
+        </div>
+        <div class="form-row">
+          <textarea id="entry-note" placeholder="Notes (optional)" rows="2" style="width:100%;"></textarea>
+        </div>
+        <div class="form-row form-row-inline" style="justify-content: flex-end; margin-top: 8px;">
+          <button type="button" class="btn-secondary" id="btn-cancel-entry">Cancel</button>
+          <button type="submit" class="btn-primary">Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── Habit Edit Modal ─── -->
+  <div class="modal-overlay" id="habit-edit-modal-overlay" style="display:none;">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <div>
+          <span class="chapter-num" style="font-size:0.7rem;">تعديل</span>
+          <h2>Edit Habit</h2>
+        </div>
+        <button class="modal-close" id="habit-edit-modal-close">&times;</button>
+      </div>
+      <form id="habit-edit-form">
+        <input type="hidden" id="edit-habit-id" />
+        <div class="form-row">
+          <label style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-bottom:2px;">Label</label>
+          <input type="text" id="edit-habit-label" required style="width:100%;" />
+        </div>
+        <div class="form-row form-row-inline">
+          <div style="flex:1;">
+            <label style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-bottom:4px;">Base Color</label>
+            <div class="habit-color-picker" id="edit-habit-color-picker">
+              <button type="button" class="habit-color-btn" data-color="indigo" title="Indigo"></button>
+              <button type="button" class="habit-color-btn" data-color="crimson" title="Crimson"></button>
+              <button type="button" class="habit-color-btn" data-color="matcha" title="Matcha"></button>
+            </div>
+            <input type="hidden" id="edit-habit-color-val" value="indigo" />
+          </div>
+          <div style="flex:1;">
+            <label style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-bottom:4px;">Track Mode</label>
+            <select id="edit-habit-shading-mode" style="width:100%;">
+              <option value="count">Count (×)</option>
+              <option value="duration">Duration (min)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row form-row-inline" style="justify-content: space-between; margin-top: 14px;">
+          <button type="button" class="btn-danger" id="btn-delete-habit-modal">Delete Habit</button>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn-secondary" id="btn-cancel-edit-habit">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
