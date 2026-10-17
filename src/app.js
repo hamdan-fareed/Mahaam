@@ -1180,7 +1180,7 @@ const app = {
           const prioName = PRIORITY_NAMES[task.priority] || task.priority;
           let meta = `${escapeHtml(quadName)} · ${escapeHtml(prioName)}`;
           if (task.dueDate) {
-            meta += ` · Due ${formatDisplayDate(task.dueDate)}`;
+            meta += ` · Due ${escapeHtml(formatDisplayDate(task.dueDate))}`;
           }
 
           html += `
@@ -1322,7 +1322,7 @@ const app = {
       const prioName = PRIORITY_NAMES[task.priority] || task.priority;
       let meta = `${escapeHtml(quadName)} · ${escapeHtml(prioName)}`;
       if (task.dueDate) {
-        meta += ` · Due ${formatDisplayDate(task.dueDate)}`;
+        meta += ` · Due ${escapeHtml(formatDisplayDate(task.dueDate))}`;
       }
 
       const checkboxClass = task.done ? 'task-checkbox checked' : 'task-checkbox';
@@ -1429,7 +1429,7 @@ const app = {
 
         const isTodayClass = d.isToday ? 'is-today' : '';
         const exactValText = d.val > 0 ? `${d.val} ${unitLabel}` : 'No activity';
-        const tooltipText = `${formatDisplayDate(d.dateStr)} · ${exactValText}`;
+        const tooltipText = `${escapeHtml(formatDisplayDate(d.dateStr))} · ${exactValText}`;
 
         stripBlocksHtml += `
           <div class="habit-day-block ${isTodayClass}" style="${bgStyle} ${borderStyle}">
@@ -1469,7 +1469,7 @@ const app = {
             rowsHtml += `
               <div class="history-entry-row">
                 <div class="history-entry-left">
-                  <span class="history-entry-date">${formatDisplayDate(entry.date)}</span>
+                  <span class="history-entry-date">${escapeHtml(formatDisplayDate(entry.date))}</span>
                   <span class="history-entry-time">${escapeHtml(displayTime)}</span>
                   <span class="history-entry-badge" style="${badgeStyle}">${entryVal}</span>
                   ${noteText}
