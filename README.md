@@ -38,7 +38,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/mahaam.git
+git clone https://github.com/hamdan-fareed/mahaam.git
 cd mahaam
 
 # Install dependencies
