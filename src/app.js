@@ -1180,7 +1180,8 @@ const app = {
           const prioName = PRIORITY_NAMES[task.priority] || task.priority;
           let meta = `${escapeHtml(quadName)} · ${escapeHtml(prioName)}`;
           if (task.dueDate) {
-            meta += ` · Due ${formatDisplayDate(task.dueDate)}`;
+            // security: escape user-supplied due date string to prevent XSS
+            meta += ` · Due ${escapeHtml(formatDisplayDate(task.dueDate))}`;
           }
 
           html += `
@@ -1322,7 +1323,8 @@ const app = {
       const prioName = PRIORITY_NAMES[task.priority] || task.priority;
       let meta = `${escapeHtml(quadName)} · ${escapeHtml(prioName)}`;
       if (task.dueDate) {
-        meta += ` · Due ${formatDisplayDate(task.dueDate)}`;
+        // security: escape user-supplied due date string to prevent XSS
+        meta += ` · Due ${escapeHtml(formatDisplayDate(task.dueDate))}`;
       }
 
       const checkboxClass = task.done ? 'task-checkbox checked' : 'task-checkbox';
@@ -1469,7 +1471,8 @@ const app = {
             rowsHtml += `
               <div class="history-entry-row">
                 <div class="history-entry-left">
-                  <span class="history-entry-date">${formatDisplayDate(entry.date)}</span>
+                  <!-- security: escape derived date string to prevent XSS -->
+                  <span class="history-entry-date">${escapeHtml(formatDisplayDate(entry.date))}</span>
                   <span class="history-entry-time">${escapeHtml(displayTime)}</span>
                   <span class="history-entry-badge" style="${badgeStyle}">${entryVal}</span>
                   ${noteText}
