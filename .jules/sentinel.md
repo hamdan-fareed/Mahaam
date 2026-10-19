@@ -1,0 +1,4 @@
+## 2024-05-24 - Offline-First CSP Hardening
+**Vulnerability:** XSS leading to data exfiltration. An attacker who manages to execute malicious scripts via XSS (e.g. innerHTML vulnerabilities) could exfiltrate the user's private data to an external server.
+**Learning:** Since the application is strictly offline-first and requires no external network requests, the most robust defense against data exfiltration is to completely block outbound network requests via Content Security Policy (CSP).
+**Prevention:** Added a strict CSP with `connect-src 'self'` to `src/index.html`. This ensures that even if an XSS vulnerability exists, the malicious script cannot exfiltrate data to external servers, while still allowing legitimate local requests for things like HMR or local fetches.
