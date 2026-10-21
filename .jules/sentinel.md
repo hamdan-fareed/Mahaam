@@ -1,0 +1,4 @@
+## 2024-10-21 - [Missing Content Security Policy in Offline-First Electron App]
+**Vulnerability:** The application was missing a strict Content Security Policy (CSP), specifically `connect-src 'self'`, which allowed the application to potentially connect to external servers if a cross-site scripting (XSS) vulnerability was present or dependencies were compromised.
+**Learning:** Even fully offline-first applications (like this Electron app) require a strict CSP. Without it, data exfiltration is still a risk if any script execution vulnerability is found or third-party dependencies misbehave.
+**Prevention:** Always implement a robust CSP for Electron apps (e.g., `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">`) directly in the `index.html` regardless of the app being offline-first.
