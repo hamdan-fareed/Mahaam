@@ -1,0 +1,4 @@
+## 2024-05-20 - [Missing Content Security Policy (CSP)]
+**Vulnerability:** The application lacks a Content Security Policy (CSP), which is a critical security vulnerability, especially for an Electron application where data exfiltration (e.g. sending local storage data to external servers) needs to be prevented.
+**Learning:** The application architecture relies on inline event handlers and styles, which is why `'unsafe-inline'` for `script-src` and `style-src` is necessary. However, `connect-src 'self'` should still be used to restrict where network requests can be sent.
+**Prevention:** Always define a strict CSP for Electron applications. Enforce `connect-src 'self'` to prevent data exfiltration. If inline scripts/styles are required, limit the scope of `script-src` and `style-src` as much as possible while maintaining functionality.
