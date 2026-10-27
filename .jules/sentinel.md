@@ -1,0 +1,4 @@
+## 2023-10-27 - [Add strict Content-Security-Policy to Electron app]
+**Vulnerability:** Missing Content Security Policy (CSP) in an Electron application allowed potential data exfiltration and external communication, violating offline-first architecture principles.
+**Learning:** Adding a CSP to a vanilla JS/HTML/CSS Electron app that uses inline styles and event handlers requires a nuanced approach. While `connect-src 'self'` prevents external fetches, the app requires `script-src 'unsafe-inline'` and `style-src 'unsafe-inline'` to function without a major refactor of all inline event handlers (e.g., `onclick`) and styles.
+**Prevention:** Always define a strict CSP for Electron applications. When starting new projects, avoid inline scripts and styles from the beginning to allow for a stronger CSP without `'unsafe-inline'`.
