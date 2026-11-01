@@ -1,0 +1,4 @@
+## 2024-05-18 - [Content Security Policy setup for Offline-first architecture]
+**Vulnerability:** Missing Content Security Policy (CSP) allowed potentially unmitigated exfiltration in case of Cross-Site Scripting (XSS).
+**Learning:** Due to the vanilla HTML/JS/CSS architecture with inline event handlers (e.g. `onclick='app.toggleTask(...)'`) and styles, the application specifically requires `'unsafe-inline'` for `script-src` and `style-src`. However, since it is an offline-first application, we can use `connect-src 'self'` to heavily restrict external connections to prevent data exfiltration.
+**Prevention:** Ensure new environments (e.g., Android app, new web entrypoints) inherit a strict CSP that limits `connect-src` to `'self'` while providing the necessary allowances (`'unsafe-inline'`) for the application architecture to function correctly.
