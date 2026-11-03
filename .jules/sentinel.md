@@ -1,0 +1,4 @@
+## 2024-03-24 - Content Security Policy added for offline-first Electron application
+**Vulnerability:** Missing Content Security Policy (CSP) allowed potentially untrusted content if scripts were compromised, and increased risk of data exfiltration in case of XSS.
+**Learning:** Due to the application's architecture heavily relying on inline event handlers (like `onclick="app.toggleTask(...)"`) and styles within `index.html` and injected by `app.js`, `'unsafe-inline'` must be allowed for both `script-src` and `style-src`. However, as it is a fully offline-first app, restricting `connect-src` to `'self'` is highly effective at preventing data exfiltration to external servers.
+**Prevention:** Always enforce a strict CSP when creating an Electron app. If architectural constraints require inline scripts/styles, mitigate data exfiltration risks by strictly confining data flow (e.g., `connect-src 'self'`).
