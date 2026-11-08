@@ -1,0 +1,4 @@
+## 2024-05-18 - [MEDIUM] Missing Content Security Policy
+**Vulnerability:** The application was missing a Content Security Policy (CSP), allowing potential data exfiltration via external requests if an XSS vulnerability was exploited.
+**Learning:** Even fully offline-first Electron applications need strict CSPs (especially `connect-src 'self'`) as defense-in-depth, even when `nodeIntegration` is disabled. Due to architectural constraints (inline styles and event handlers in vanilla JS/HTML), `'unsafe-inline'` must be allowed for scripts and styles, making `connect-src` restriction crucial to stop data leaving the app.
+**Prevention:** Always implement a strict CSP via `<meta>` tag or HTTP headers in Electron apps, restricting network connections and external resources as much as possible while accommodating necessary architectural patterns.
