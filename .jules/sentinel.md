@@ -1,0 +1,4 @@
+## 2024-11-11 - Missing Content Security Policy (CSP)
+**Vulnerability:** The application was missing a Content Security Policy (CSP) header/meta tag. This could allow execution of malicious scripts if an attacker found a way to inject them.
+**Learning:** This is an offline-first Electron application with a vanilla JS/HTML architecture that relies heavily on inline styles and event handlers (e.g., `onclick="app.toggleTask(...)"`). Consequently, we had to allow `'unsafe-inline'` for `script-src` and `style-src` while locking down `connect-src` to `'self'` to prevent data exfiltration.
+**Prevention:** Always implement a CSP. In applications with legacy or vanilla architectures, use the strictest CSP possible (like restricting `connect-src` and `default-src`) while acknowledging the specific constraints (like needing `'unsafe-inline'`).
